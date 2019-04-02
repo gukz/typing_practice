@@ -36,12 +36,12 @@ class GUI():
 
     def show(self, word, user_inp, finish, speed):
         sys.stdout.write('\33[2J\33[2A')  # [2J:clc screen, [2A:go back two \n
-        sys.stdout.write('\n')
+        sys.stdout.write('\n\n')
         self._print(
                 self.front_color.green,
                 f'[{finish} speed: {int(speed)}ms/bit]')
         sys.stdout.write('\n')
-        self._print(self.front_color.blue, word)
+        self._print(self.front_color.yellow, word)
         sys.stdout.write('\n')
         error_index = self._error_index(word, user_inp)
         self._print(self.front_color.green, user_inp[:error_index])
@@ -93,6 +93,7 @@ def word_type():
             continue
         temp[DICT_FILE_NAME] = index
         json.dump(temp, open('temp.json', 'w'))
+        word = word.replace('#', '')
 
         t1 = time.time()
         txt = ''
@@ -106,7 +107,10 @@ def word_type():
                 break
             ch = inp.read_char()
             if len(ch) > 0:
-                ascii_inp_list = list(bytes(ch.encode('ascii')))
+                try:
+                    ascii_inp_list = list(bytes(ch.encode('ascii')))
+                except UnicodeEncodeError:
+                    continue
                 for ascii_inp in ascii_inp_list:
                     if ascii_inp == 35:
                         break
@@ -119,8 +123,8 @@ def word_type():
                     MSG_TEMPLATE.format(index, len(word_dict)),
                     speed)
             else:
+                # time.sleep(0.01)
                 pass
-                # time.sleep(0.1)
 
 
 if __name__ == '__main__':
