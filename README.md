@@ -1,6 +1,8 @@
 # typing_practice
-一个可以自定义词库的命令行打字练习工具
+a command-line tool can be used to practice typing words.
 
-# 使用方法
-- `dict.json` 所有词库文件，需要是一个 json 列表。
-- `type.py` 脚本，使用 `python3 type.py` 来修复。
+## how to use?
+- `python3 type.py`
+
+## how to defin my own words collection?
+- create a `dict.json` in same folder, and you can add words to `dict.json`
